@@ -14,6 +14,7 @@ export default {
   data: () => {
     return {
       obniz: null,
+      servo: null,
     };
   },
   created: function () {
@@ -21,11 +22,25 @@ export default {
   },
   methods: {
     openAlert () {
+      // 鍵を開ける
+      var servo = this.obniz.wired("ServoMotor", {gnd:0, vcc:1, signal:2});
+      servo.angle(0);
+      this.obniz.wait(500);
+      servo.off();
+
+      // ステータスを更新
       this.obniz.display.clear();
       this.obniz.display.print('Open');
       this.$swal('開けたよ');
     },
     closeAlert (){
+      // 鍵を閉める
+      var servo = this.obniz.wired("ServoMotor", {gnd:0, vcc:1, signal:2});
+      servo.angle(0);
+      this.obniz.wait(500);
+      servo.off();
+      
+      // ステータスを更新
       this.obniz.display.clear();
       this.obniz.display.print('Close');
       this.$swal('閉めたよ');
