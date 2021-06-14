@@ -1,17 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>スマートロック</h1>
+    <button class="btn-lg btn-primary" @click="openAlert">開ける</button>
+    <button class="btn-lg btn-danger" @click="closeAlert">閉める</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Obniz from 'obniz';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data: () => {
+    return {
+      obniz: null,
+    };
+  },
+  created: function () {
+    this.obniz = new Obniz(process.env.VUE_APP_OBNIZ_ID);
+  },
+  methods: {
+    openAlert () {
+      this.obniz.display.clear();
+      this.obniz.display.print('Open');
+      this.$swal('開けたよ');
+    },
+    closeAlert (){
+      this.obniz.display.clear();
+      this.obniz.display.print('Close');
+      this.$swal('閉めたよ');
+    }
   }
 }
 </script>
