@@ -36,7 +36,7 @@ export default {
     closeAlert (){
       // 鍵を閉める
       var servo = this.obniz.wired("ServoMotor", {gnd:0, vcc:1, signal:2});
-      servo.angle(0);
+      servo.angle(90);
       this.obniz.wait(500);
       servo.off();
       
