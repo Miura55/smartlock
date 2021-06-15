@@ -23,10 +23,7 @@ export default {
   methods: {
     openAlert () {
       // 鍵を開ける
-      var servo = this.obniz.wired("ServoMotor", {gnd:0, vcc:1, signal:2});
-      servo.angle(0);
-      this.obniz.wait(500);
-      servo.off();
+      this.runServo(0);
 
       // ステータスを更新
       this.obniz.display.clear();
@@ -35,15 +32,18 @@ export default {
     },
     closeAlert (){
       // 鍵を閉める
-      var servo = this.obniz.wired("ServoMotor", {gnd:0, vcc:1, signal:2});
-      servo.angle(90);
-      this.obniz.wait(500);
-      servo.off();
+      this.runServo(90);
       
       // ステータスを更新
       this.obniz.display.clear();
       this.obniz.display.print('Close');
       this.$swal('閉めたよ');
+    },
+    runServo (angle){
+      var servo = this.obniz.wired("ServoMotor", {gnd:0, vcc:1, signal:2});
+      servo.angle(angle);
+      this.obniz.wait(500);
+      servo.off();
     }
   }
 }
