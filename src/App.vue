@@ -18,7 +18,7 @@ export default {
     };
   },
   created: function () {
-    this.obniz = new Obniz(process.env.VUE_APP_OBNIZ_ID);
+    this.obniz = new Obniz(process.env.VUE_APP_OBNIZ_ID, {local_connect : false});
   },
   methods: {
     openAlert () {
@@ -30,7 +30,7 @@ export default {
       this.obniz.display.print('Open');
       this.$swal('開けたよ');
     },
-    closeAlert (){
+    closeAlert () {
       // 鍵を閉める
       this.runServo(90);
       
@@ -39,7 +39,7 @@ export default {
       this.obniz.display.print('Close');
       this.$swal('閉めたよ');
     },
-    runServo (angle){
+    runServo (angle) {
       var servo = this.obniz.wired("ServoMotor", {gnd:0, vcc:1, signal:2});
       servo.angle(angle);
       this.obniz.wait(500);
